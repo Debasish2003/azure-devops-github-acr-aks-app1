@@ -37,6 +37,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          $(Build.SourceVersion)
     
     - task: CopyFiles@2
       inputs:
