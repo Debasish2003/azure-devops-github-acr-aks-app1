@@ -16,8 +16,9 @@ stages:
     displayName: Build job
     pool:
       vmImage: 'ubuntu-latest'
-    steps: 
-    settings:
+    steps:
+    
+    Settings
     - task: Docker@2
       inputs:
         containerRegistry: 'manu-acr-svc'
@@ -27,14 +28,16 @@ stages:
         tag: 
          $(tag)
          $(Build.SourceVersion)
-    settings:
+
+    Settings
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)/kube-manifests'
         Contents: '**'
         TargetFolder: '$(build.artifactstagingdirectory)'
         OverWrite: true
-    settings:
+
+    Settings
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
