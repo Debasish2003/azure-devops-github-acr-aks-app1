@@ -16,32 +16,35 @@ stages:
     displayName: Build job
     pool:
       vmImage: 'ubuntu-latest'
-    steps:
-    
+    steps: 
+    settings:
     - task: Docker@2
       inputs:
         containerRegistry: 'manu-acr-svc'
-        repository: 'manualaksnginxapp1'
+        repository: 'manualaksnginx'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags:
+        tag: 
          $(tag)
-         $(Build.SouceVersion)
-    
+         $(Build.SourceVersion)
+    settings:
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)/kube-manifests'
         Contents: '**'
         TargetFolder: '$(build.artifactstagingdirectory)'
         OverWrite: true
-
+    settings:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'kube-manifest'
-        publishLocation: 'Container'     
+        publishLocation: 'Container'
+
+
     
 
+  
     
 
   
